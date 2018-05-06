@@ -18,3 +18,9 @@ print(pj.to_string(pj.from_string('{"foo":{"bar":[1,2,3]}}')))
 ```bash
 python3 -m unittest
 ```
+
+### Quality
+
+The number detection is bad. There are tons of missing cases not
+handled. There is no line/column tracking. The primary purpose of this
+library is for education.
