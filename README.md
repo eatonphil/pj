@@ -5,6 +5,10 @@ strings and objects in Python. I wrote it because I wanted a small
 example to demonstrate the simplest hand-written parser techniques
 and couldn't find any obvious results on Google.
 
+[Here](http://notes.eatonphil.com/writing-a-simple-json-parser.html)
+is the original blog post explaining the concepts and implementation
+of this library.
+
 ### Use
 
 ```python
