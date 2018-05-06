@@ -31,6 +31,9 @@ class TestStringMethods(unittest.TestCase):
     def test_true(self):
         self.assertEqual(pj.from_string('{"foo":null}'), {"foo": None})
 
+    def test_basic_whitespace(self):
+        self.assertEqual(pj.from_string('{ "foo" : [1, 2, "three"] }'), {"foo": [1, 2, "three"]})
+
 
 if __name__ == '__main__':
     unittest.main()
