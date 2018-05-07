@@ -5,7 +5,7 @@ def parse_array(tokens):
     json_array = []
 
     t = tokens[0]
-    if t == JSON_RIGHTPAREN:
+    if t == JSON_RIGHTBRACKET:
         return json_array, tokens[1:]
 
     while True:
@@ -13,7 +13,7 @@ def parse_array(tokens):
         json_array.append(json)
 
         t = tokens[0]
-        if t == JSON_RIGHTPAREN:
+        if t == JSON_RIGHTBRACKET:
             return json_array, tokens[1:]
         elif t != JSON_COMMA:
             raise Exception('Expected comma after object in array')
@@ -27,7 +27,7 @@ def parse_object(tokens):
     json_object = {}
 
     t = tokens[0]
-    if t == JSON_RIGHTBRACKET:
+    if t == JSON_RIGHTBRACE:
         return json_object, tokens[1:]
 
     while True:
@@ -45,7 +45,7 @@ def parse_object(tokens):
         json_object[json_key] = json_value
 
         t = tokens[0]
-        if t == JSON_RIGHTBRACKET:
+        if t == JSON_RIGHTBRACE:
             return json_object, tokens[1:]
         elif t != JSON_COMMA:
             raise Exception('Expected comma after pair in object, got: {}'.format(t))
@@ -57,12 +57,12 @@ def parse_object(tokens):
 def parse(tokens, is_root=False):
     t = tokens[0]
 
-    if is_root and t != JSON_LEFTBRACKET:
+    if is_root and t != JSON_LEFTBRACE:
         raise Exception('Root must be an object')
 
-    if t == JSON_LEFTPAREN:
+    if t == JSON_LEFTBRACKET:
         return parse_array(tokens[1:])
-    elif t == JSON_LEFTBRACKET:
+    elif t == JSON_LEFTBRACE:
         return parse_object(tokens[1:])
     else:
         return t, tokens[1:]
