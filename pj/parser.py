@@ -20,7 +20,7 @@ def parse_array(tokens):
         else:
             tokens = tokens[1:]
 
-    raise Exception('Expected end-of-array parenthesis')
+    raise Exception('Expected end-of-array bracket')
 
 
 def parse_object(tokens):
