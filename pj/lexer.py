@@ -31,10 +31,46 @@ def lex_number(string):
     json_number = ''
 
     number_characters = [str(d) for d in range(0, 10)] + ['-', 'e', '.']
-
+    er = 'Invalid Number'
+    # Flags to take care of number symbols
+    exp_done = 0
+    fp_done = 0
+    sign_done = 0
+    dgt_done = 0
+    
     for c in string:
         if c in number_characters:
+            if c == 'e':
+                if not dgt_done:
+                    raise Exception(er)
+                elif exp_done:
+                    raise Exception(er)
+                
+                exp_done = 1
+                fp_done = 1 # Exponential must be integral
+                sign_done = 0 # Exponential has its own sign so reset
+                dgt_done = 0
+            
+            elif c == '.':
+                if not dgt_done:
+                    raise Exception(er)
+                if fp_done:
+                    raise Exception(er)
+                
+                fp_done = 1
+            
+            elif c == '-':
+                if sign_done:
+                    raise Exception(er)
+                
+                sign_done = 1
+            
+            elif not dgt_done: # A digit encountered 
+                sign_done = 1 # A positive number
+                dgt_done = 1
+              
             json_number += c
+        
         else:
             break
 
@@ -43,7 +79,10 @@ def lex_number(string):
     if not len(json_number):
         return None, string
 
-    if '.' in json_number:
+    if not dgt_done:
+        raise Exception(er)
+    
+    if fp_done:
         return float(json_number), rest
 
     return int(json_number), rest
