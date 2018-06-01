@@ -34,6 +34,13 @@ class TestStringMethods(unittest.TestCase):
     def test_basic_whitespace(self):
         self.assertEqual(pj.from_string('{ "foo" : [1, 2, "three"] }'), {"foo": [1, 2, "three"]})
 
+    def test_afert_colon_not_key(self):
+        try:
+            pj.from_string('{ "foo" 1 [1, 2, "three"] }')
+        except Exception as e:
+            self.assertEqual(str(e), "Expected colon after key in object, got: 1")
+        else:
+            self.assertEqual(true, false)
 
 if __name__ == '__main__':
     unittest.main()
