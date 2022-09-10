@@ -54,10 +54,11 @@ def parse_object(tokens):
 
     raise Exception('Expected end-of-object bracket')
 
+
 def parse(tokens, is_root=False):
     t = tokens[0]
 
-    if is_root and t != JSON_LEFTBRACE:
+    if is_root and t not in [JSON_LEFTBRACE, JSON_LEFTBRACKET]:
         raise Exception('Root must be an object')
 
     if t == JSON_LEFTBRACKET:
